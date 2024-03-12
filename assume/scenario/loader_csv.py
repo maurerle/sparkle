@@ -344,8 +344,8 @@ def load_config_and_create_forecaster(
 
     sim_id = config.get("simulation_id", f"{scenario}_{study_case}")
 
-    start = pd.Timestamp(config["start_date"])
-    end = pd.Timestamp(config["end_date"])
+    start = config["start_date"]
+    end = config["end_date"]
 
     index = pd.date_range(
         start=start,
