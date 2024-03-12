@@ -91,17 +91,20 @@ def load_file(
 
             df.index.freq = df.index.inferred_freq
 
-            if len(df.index) < len(index) and df.index.freq == index.freq:
+            idx = pd.Index(index)
+            idx.freq = idx.inferred_freq
+
+            if len(df.index) < len(index) and df.index.freq == idx.freq:
                 logger.warning(
                     f"{file_name}: simulation time line is longer than length of the dataframe. Returning None."
                 )
                 return None
 
-            if df.index.freq < index.freq:
-                df = df.resample(index.freq).mean()
+            if df.index.freq < idx.freq:
+                df = df.resample(idx.freq).mean()
                 logger.info(f"Downsampling {file_name} successful.")
 
-            elif df.index.freq > index.freq or len(df.index) < len(index):
+            elif df.index.freq > idx.freq or len(df.index) < len(index):
                 logger.warning("Upsampling not implemented yet. Returning None.")
                 return None
 
@@ -317,15 +320,11 @@ async def load_scenario_folder_async(
 
     world.reset()
 
-    start = pd.Timestamp(config["start_date"])
-    end = pd.Timestamp(config["end_date"])
+    start = config["start_date"]
+    end = config["end_date"]
+    freq = timedelta(0) + pd.tseries.frequencies.to_offset('1h')
 
-    index = pd.date_range(
-        start=start,
-        # end time needs to be a little ahead for forecasts
-        end=end + timedelta(days=1),
-        freq=config["time_step"],
-    )
+    index = np.arange(start, end + timedelta(days=1), freq.seconds*1_000_000)
     # get extra parameters for bidding strategies
 
     # load the data from the csv files

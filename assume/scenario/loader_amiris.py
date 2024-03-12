@@ -8,6 +8,7 @@ from datetime import timedelta
 
 import dateutil.rrule as rr
 import pandas as pd
+import numpy as np
 import yaml
 from dateutil.relativedelta import relativedelta as rd
 from yamlinclude import YamlIncludeConstructor
@@ -483,7 +484,7 @@ async def load_amiris_async(
     sim_id = f"{scenario}_{study_case}"
     save_interval = amiris_scenario["GeneralProperties"]["Output"]["Interval"]
     prices = {}
-    index = pd.date_range(start=start, end=end, freq="1h", inclusive="left")
+    index = np.arange(start, end, 3600*1_000_000)
     world.bidding_strategies["support"] = SupportStrategy
     await world.setup(
         start=start,

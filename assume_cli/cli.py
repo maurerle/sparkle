@@ -114,7 +114,7 @@ def cli(args=None):
 
     # add these two weird hacks for now
     warnings.filterwarnings("ignore", "coroutine.*?was never awaited.*")
-    logging.getLogger("asyncio").setLevel("FATAL")
+    #logging.getLogger("asyncio").setLevel("FATAL")
 
     try:
         # import package after argcomplete.autocomplete
@@ -136,6 +136,8 @@ def cli(args=None):
             study_case=args.case_study,
         )
 
+        logging.info(f"loaded {args.scenario} - {args.case_study}")
+
         if world.learning_config.get("learning_mode", False):
             run_learning(
                 world,
@@ -143,7 +145,6 @@ def cli(args=None):
                 scenario=args.scenario,
                 study_case=args.case_study,
             )
-
         world.run()
 
     except KeyboardInterrupt:

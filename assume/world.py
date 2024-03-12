@@ -11,7 +11,6 @@ from pathlib import Path
 from sys import platform
 from typing import Optional, Union
 
-import nest_asyncio
 import pandas as pd
 from mango import RoleAgent, create_container
 from mango.container.core import Container
@@ -154,7 +153,6 @@ class World:
         self.clearing_mechanisms: dict[str, MarketRole] = clearing_mechanisms
         self.additional_kpis: dict[str, OutputDef] = {}
         self.addresses = []
-        nest_asyncio.apply()
         self.loop = asyncio.get_event_loop()
         asyncio.set_event_loop(self.loop)
 
@@ -571,3 +569,7 @@ class World:
         self.markets = {}
         self.unit_operators = {}
         self.forecast_providers = {}
+
+    def __del__(self):
+        if isinstance(self.container, Container) and self.container.running:
+            self.loop.run_until_complete(self.container.shutdown())
