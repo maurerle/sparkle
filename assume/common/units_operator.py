@@ -400,10 +400,8 @@ class UnitsOperator(Role):
             This function will accomodate the portfolio optimization in the future.
         """
         t = time.time()
-        from math import factorial
 
-        list1 = [factorial(i) for i in range(3000)]
-        list1.append(3)
+        # list1 = [factorial(i) for i in range(3000)]
 
         products = opening["products"]
         market = self.registered_markets[opening["market_id"]]
