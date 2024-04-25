@@ -5,7 +5,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-plt.style.use("seaborn-v0_8")
+# plt.style.use("seaborn-v0_8")
 
 
 def plot_df(df, title="Time vs. n"):
@@ -197,3 +197,20 @@ if __name__ == "__main__":
         results = json.load(f)
 
     df = pd.read_json("runtime_tests.json")
+
+    with open("runtime_tests.json") as f:
+        results = json.load(f)
+
+    df = pd.read_json("examples/runtime_tests.json")
+    df.columns = ["n", "m", "type", "time"]
+    df["speedup"] = df["time"].iloc[0] / df["time"]
+    plt.figure(figsize=(10, 6))
+    plt.plot(df["n"], df["time"], "x-", label="wall time")
+    plt.xlabel("n Cores")
+    plt.ylabel("wall time in seconds")
+    plt.title("Simulation time with 16 agents by cpu cores")
+    plt.legend()
+    plt.grid(True)
+    # plt.table(cellText=[list(df["speedup"]), list(df["time"])], rowLabels=["speedup", "time"], colLabels=df["n"], loc="bottom")
+    plt.savefig("scalability.svg")
+    plt.show()
