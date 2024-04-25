@@ -60,6 +60,8 @@ class UnitsOperator(Role):
     ):
         super().__init__()
         self.whole_wait = 0
+        self.market_feedback_duration = 0
+        self.bids_duration = 0
 
         self.available_markets = available_markets
         self.registered_markets: dict[str, MarketConfig] = {}
@@ -214,7 +216,7 @@ class UnitsOperator(Role):
         self.valid_orders[marketconfig.product_type].extend(orderbook)
         self.set_unit_dispatch(orderbook, marketconfig)
         self.write_actual_dispatch(marketconfig.product_type)
-        self.whole_wait += time.time() - t
+        self.market_feedback_duration += time.time() - t
 
     def handle_registration_feedback(
         self, content: RegistrationMessage, meta: MetaDict
@@ -438,7 +440,7 @@ class UnitsOperator(Role):
             receiver_id=market.aid,
             acl_metadata=acl_metadata,
         )
-        self.whole_wait += time.time() - t
+        self.bids_duration += time.time() - t
 
     async def formulate_bids_portfolio(
         self, market: MarketConfig, products: list[tuple]
@@ -500,4 +502,6 @@ class UnitsOperator(Role):
         return orderbook
 
     async def on_stop(self):
-        logger.warning(f"operator duration was {self.whole_wait}")
+        logger.warning(
+            f"operator {self.id} duration was {self.market_feedback_duration}"
+        )

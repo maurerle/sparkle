@@ -38,14 +38,6 @@ def run_sync(n=1):
     world.loop.run_until_complete(init(world, n))
     world.run()
 
-    # m, n, t
-    # 8, 1, 33.6
-    # 4, 2, 20.3
-    # 2, 4, 18
-    # 1, 8, 17
-
-    #
-
 
 def compare_runtime(ns=range(1, 3)):
     """This test compares the runtime between distributed and single process simulation"""
@@ -65,7 +57,7 @@ def compare_runtime(ns=range(1, 3)):
     return results
 
 
-def compare_speedup(exponent=4):
+def compare_speedup(exponent=3):
     total_agents = 2**exponent
     ns = [2**x for x in range(exponent + 1)]
     results = []
@@ -86,8 +78,9 @@ if __name__ == "__main__":
     print("start simulation with", n)
     t = time.time()
     run_distrib(n, m)
+    # run_sync(n*m)
     duration = time.time() - t
-    print(duration)
+    print("duration", duration)
 
     # results = compare_runtime(range(1,4))
     # results = compare_speedup()
