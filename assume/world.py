@@ -626,10 +626,6 @@ class World:
 
     async def _step(self):
         t = time.time()
-        if self.distributed_role:
-            # TODO find better way than sleeping
-            # we need to wait, until the last step is executed correctly
-            await asyncio.sleep(0.04)
         if self.distributed_role is not False:
             next_activity = await self.clock_manager.distribute_time()
         else:

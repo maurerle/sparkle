@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
+import json
 import time
 from multiprocessing import Process
 
@@ -73,19 +74,18 @@ def compare_speedup(exponent=3):
 
 
 if __name__ == "__main__":
-    n = 1
-    m = 16
-    print("start simulation with", n)
-    t = time.time()
-    run_distrib(n, m)
-    # run_sync(n*m)
-    duration = time.time() - t
-    print("duration", duration)
+    # n = 1
+    # m = 16
+    # print("start simulation with", n)
+    # t = time.time()
+    # run_distrib(n, m)
+    # # run_sync(n*m)
+    # duration = time.time() - t
+    # print("duration", duration)
 
     # results = compare_runtime(range(1,4))
-    # results = compare_speedup()
+    results = compare_speedup(5)
     # print(results)
-    # import json
 
     with open("runtime_tests.json", "w") as f:
        json.dump(results, f, indent=4)
