@@ -92,6 +92,7 @@ async def worker(
             start_ts=datetime2timestamp(world.start),
             end_ts=datetime2timestamp(world.end),
         )
+        await world.container.shutdown()
     elif world.distributed_role is False:
         await world.clock_agent.stopped
         await world.container.shutdown()

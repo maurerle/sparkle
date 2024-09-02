@@ -4,12 +4,14 @@
 
 import json
 import time
-from multiprocessing import Process
+from multiprocessing import Process, set_start_method
 
 from distributed_simulation.main import agent, agent_adresses, manager, tcp_host
 from world_script import init
 
 from assume import World
+
+set_start_method('spawn', force=True)
 
 
 def run_distrib(n=1, m=1):
@@ -24,7 +26,7 @@ def run_distrib(n=1, m=1):
     for ag in ags:
         ag.start()
 
-    # time.sleep(2)
+    time.sleep(1.5)
     manager()
 
     # man.join()

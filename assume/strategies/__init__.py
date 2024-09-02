@@ -62,5 +62,5 @@ try:
     bidding_strategies["pp_learning"] = RLStrategy
     bidding_strategies["learning_advanced_orders"] = RLAdvancedOrderStrategy
 
-except ImportError:
+except (ImportError, AttributeError):
     pass
