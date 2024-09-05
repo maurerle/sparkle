@@ -11,7 +11,7 @@ from world_script import init
 
 from assume import World
 
-set_start_method('spawn', force=True)
+set_start_method("spawn", force=True)
 
 
 def run_distrib(n=1, m=1):
@@ -76,21 +76,26 @@ def compare_speedup(exponent=3):
 
 
 if __name__ == "__main__":
-    # n = 1
-    # m = 16
+    n = 16
+    m = 1
     # print("start simulation with", n)
     # t = time.time()
-    # run_distrib(n, m)
+    run_distrib(n, m)
     # # run_sync(n*m)
     # duration = time.time() - t
     # print("duration", duration)
 
     # results = compare_runtime(range(1,4))
-    results = compare_speedup(5)
+    # results = compare_speedup(5)
     # print(results)
+    import json
+
+    results = []
 
     with open("runtime_tests.json", "w") as f:
-       json.dump(results, f, indent=4)
+        json.dump(results, f, indent=4)
 
     # with open("runtime_tests.json", "r") as f:
     #     results = json.load(f)
+
+# [(1, 64, 'distrib', 107.751962184906), (2, 32, 'distrib', 58.396734952926636), (4, 16, 'distrib', 33.27109670639038), (8, 8, 'distrib', 19.686848163604736), (16, 4, 'distrib', 14.053528070449829), (32, 2, 'distrib', 14.025787115097046), (64, 1, 'distrib', 18.08493661880493)]
