@@ -5,5 +5,8 @@
 from assume.common.base import BaseUnit
 from assume.units.demand import Demand
 from assume.units.powerplant import PowerPlant
-from assume.units.steel_plant import SteelPlant
+try:
+    from assume.units.steel_plant import SteelPlant
+except ImportError:
+    from assume.common.base import BaseUnit as SteelPlant
 from assume.units.storage import Storage
