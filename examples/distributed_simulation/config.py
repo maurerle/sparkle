@@ -19,20 +19,19 @@ log = logging.getLogger(__name__)
 
 db_uri = os.getenv("DB_URI", "postgresql://assume:assume@localhost:5432/assume")
 db_uri = ""
-use_mqtt = False
+use_mqtt = True
 
 tcp_host = os.getenv("TCP_HOST", "0.0.0.0")
 tcp_port = int(os.getenv("TCP_PORT", "9097"))
 if use_mqtt:
     manager_addr = "manager"
     agent_adress = "agent"
-    agent_adresses = [("agent", "clock_agent")]
-    market_operator_addr = "manager"
 else:
     manager_addr = (tcp_host, tcp_port)
     agent_adress = (tcp_host, 9098)
-    agent_adresses = [((tcp_host, 9098), "clock_agent")]
-    market_operator_addr = (tcp_host, tcp_port)
+
+agent_adresses = [(agent_adress, "clock_agent")]
+market_operator_addr = manager_addr
 
 market_operator_aid = "market_operator"
 broker_addr = os.getenv("MQTT_BROKER", ("0.0.0.0", 1883, 600))
@@ -92,7 +91,5 @@ async def worker(
             start_ts=datetime2timestamp(world.start),
             end_ts=datetime2timestamp(world.end),
         )
-        await world.container.shutdown()
     elif world.distributed_role is False:
         await world.clock_agent.stopped
-        await world.container.shutdown()
