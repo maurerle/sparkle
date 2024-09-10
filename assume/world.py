@@ -8,7 +8,6 @@ import sys
 import time
 from datetime import datetime
 from pathlib import Path
-from sys import platform
 
 import nest_asyncio
 import pandas as pd

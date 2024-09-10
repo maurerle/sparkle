@@ -197,7 +197,7 @@ if __name__ == "__main__":
         results = json.load(f)
 
     df = pd.read_json("runtime_tests.json")
-    df.columns = ["n", "m", "type", "time"]    
+    df.columns = ["n", "m", "type", "time"]
     df["speedup"] = df["time"].iloc[0] / df["time"]
     plt.figure(figsize=(10, 6))
     plt.plot(df["n"], df["time"], label="wall time")

@@ -85,6 +85,7 @@ services:
     profiles: ["mqtt"]
     ports:
       - "1883:1883/tcp"
+      - "8010:8010/tcp"
     volumes:
       - ./docker_configs/mqtt.conf:/mosquitto/config/mosquitto.conf
     healthcheck:
@@ -105,7 +106,7 @@ services:
     environment:
       DB_URI: "postgresql://assume:assume@assume_db:5432/assume"
       MQTT_BROKER: mqtt-broker
-    entrypoint: python3 -m examples.distributed_simulation.world_manager
+    entrypoint: python3 -m examples.distributed_simulation.world_manager agent agent2
 
   simulation_client01:
     container_name: simulation_client01
@@ -118,4 +119,17 @@ services:
     depends_on:
       - assume_db
       - mqtt-broker
-    entrypoint: python3 -m examples.distributed_simulation.world_agent
+    entrypoint: python3 -m examples.distributed_simulation.world_agent 0 2 agent
+
+  simulation_client02:
+    container_name: simulation_client02
+    image: ghcr.io/assume-framework/assume:latest
+    profiles: ["mqtt"]
+    build: .
+    environment:
+      DB_URI: "postgresql://assume:assume@assume_db:5432/assume"
+      MQTT_BROKER: mqtt-broker
+    depends_on:
+      - assume_db
+      - mqtt-broker
+    entrypoint: python3 -m examples.distributed_simulation.world_agent 1 2 agent2

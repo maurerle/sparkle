@@ -6,7 +6,7 @@ import json
 import time
 from multiprocessing import Process, set_start_method
 
-from distributed_simulation.main import agent, agent_adresses, manager, tcp_host
+from distributed_simulation.main import agent, agent_addresses, manager, tcp_host
 from world_script import init
 
 from assume import World
@@ -16,8 +16,8 @@ set_start_method("spawn", force=True)
 
 def run_distrib(n=1, m=1):
     # man = Process(target=manager)
-    for i in range(n - 1):
-        agent_adresses.append(((tcp_host, 9099 + i), "clock_agent"))
+    for i in range(1, n):
+        agent_addresses.append(((tcp_host, 9098 + i), "clock_agent"))
     ags = []
     for i in range(n):
         ag = Process(target=agent, args=(i, n, m))
