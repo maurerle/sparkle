@@ -5,8 +5,17 @@
 from assume.common.base import BaseUnit
 from assume.units.demand import Demand
 from assume.units.powerplant import PowerPlant
+from assume.units.storage import Storage
+
+unit_types: dict[str, BaseUnit] = {
+    "power_plant": PowerPlant,
+    "demand": Demand,
+    "storage": Storage,
+}
+
 try:
     from assume.units.steel_plant import SteelPlant
+
+    unit_types["steel_plant"] = SteelPlant
 except ImportError:
-    from assume.common.base import BaseUnit as SteelPlant
-from assume.units.storage import Storage
+    pass
