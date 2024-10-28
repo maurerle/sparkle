@@ -270,7 +270,7 @@ class MarketRole(MarketMechanism, Role):
             raise ValueError(error_message)
 
         def accept_orderbook(content: OrderBookMessage, meta: MetaDict):
-            if not isinstance(content, dict):
+            if not isinstance(content, dict) and content.get("context") == "submit_bids":
                 return False
 
             if isinstance(meta["sender_addr"], list):
@@ -283,15 +283,12 @@ class MarketRole(MarketMechanism, Role):
             )
 
         def accept_registration(content: RegistrationMessage, meta: MetaDict):
-            if not isinstance(content, dict):
+            if not isinstance(content, dict) or content.get("context") != "registration":
                 return False
             if isinstance(meta["sender_addr"], list):
                 meta["sender_addr"] = tuple(meta["sender_addr"])
 
-            return (
-                content.get("context") == "registration"
-                and content.get("market_id") == self.marketconfig.market_id
-            )
+            return content.get("market_id") == self.marketconfig.market_id
 
         def accept_get_unmatched(content: dict, meta: MetaDict):
             if not isinstance(content, dict):
