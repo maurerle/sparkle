@@ -31,7 +31,7 @@ requires-python = ">=3.10"
 dependencies = [
     "argcomplete >=3.1.4",
     "nest-asyncio >=1.5.6",
-    "mango-agents >=2.1.0",
+    "mango-agents @ git+https://github.com/OFFIS-DAI/mango@add_mp_tests",
     "numpy >=1.26.4",
     "tqdm >=4.64.1",
     "python-dateutil >=2.8.2",
@@ -41,7 +41,6 @@ dependencies = [
     "pyyaml >=6.0",
     "pyyaml-include >=2.2a",
     "pyomo >=6.8.0",
-    "highspy",
 ]
 
 [project.optional-dependencies]
