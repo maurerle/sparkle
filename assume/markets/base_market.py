@@ -4,6 +4,7 @@
 
 import logging
 import math
+import time
 from itertools import groupby
 from operator import itemgetter
 
@@ -30,6 +31,8 @@ from assume.common.utils import (
 
 logger = logging.getLogger(__name__)
 
+process_time = 0
+
 
 class MarketMechanism:
     """
@@ -55,6 +58,7 @@ class MarketMechanism:
         self.open_auctions = set()
         self.all_orders = []
         self.results = []
+        self.whole_wait = 0
 
     def validate_registration(
         self, content: RegistrationMessage, meta: MetaDict
@@ -94,6 +98,7 @@ class MarketMechanism:
             KeyError: If a required field is missing in an order.
             TypeError: If order['price'] or order['volume'] is not an integer when required.
         """
+        t = time.time()
         max_price = self.marketconfig.maximum_bid_price
         min_price = self.marketconfig.minimum_bid_price
         max_volume = self.marketconfig.maximum_bid_volume
@@ -177,6 +182,8 @@ class MarketMechanism:
                     raise TypeError(
                         f"Order volume {order['volume']} must be an integer when volume_tick is set in market '{market_id}'."
                     )
+
+        self.whole_wait += time.time() - t
 
     def clear(
         self, orderbook: Orderbook, market_products: list[MarketProduct]
@@ -348,6 +355,7 @@ class MarketRole(MarketMechanism, Role):
         Sends an opening message to all registered agents, handles scheduling the clearing of the market and the next opening.
 
         """
+        t = time.time()
         # scheduled to be opened now
         market_open = timestamp2datetime(self.context.current_timestamp)
         market_closing = market_open + self.marketconfig.opening_duration
@@ -399,6 +407,7 @@ class MarketRole(MarketMechanism, Role):
             )
         else:
             logger.debug("market %s - does not reopen", self.marketconfig.market_id)
+        self.whole_wait += time.time() - t
 
     def handle_registration(self, content: RegistrationMessage, meta: MetaDict):
         """
@@ -417,6 +426,7 @@ class MarketRole(MarketMechanism, Role):
         Raises:
             KeyError: If required keys are missing in `content` or `meta`.
         """
+        t = time.time()
         agent_addr = sender_addr(meta)
 
         incoming_market_id = content.get("market_id")
@@ -461,6 +471,7 @@ class MarketRole(MarketMechanism, Role):
             receiver_addr=agent_addr,
         )
         logger.debug(f"Sent registration reply to agent '{agent_addr}': {msg}")
+        self.whole_wait += time.time() - t
 
     def handle_orderbook(self, content: OrderBookMessage, meta: MetaDict):
         """
@@ -757,3 +768,6 @@ class MarketRole(MarketMechanism, Role):
                 content=message,
                 receiver_addr=db_addr,
             )
+
+    async def on_stop(self):
+        logging.error(f"total market duration was {self.whole_wait}")
