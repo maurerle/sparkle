@@ -4,6 +4,7 @@
 
 import logging
 import math
+import time
 from itertools import groupby
 from operator import itemgetter
 
@@ -96,6 +97,7 @@ class MarketRole(MarketMechanism, Role):
 
     def __init__(self, marketconfig: MarketConfig):
         super().__init__(marketconfig)
+        self.whole_wait = 0
         self.registered_agents = {}
         self.open_auctions = set()
         self.all_orders = []
@@ -233,6 +235,7 @@ class MarketRole(MarketMechanism, Role):
         Sends an opening message to all registered agents, handles scheduling the clearing of the market and the next opening.
 
         """
+        t = time.time()
         # scheduled to be opened now
         market_open = timestamp2datetime(self.context.current_timestamp)
         market_closing = market_open + self.marketconfig.opening_duration
@@ -285,6 +288,7 @@ class MarketRole(MarketMechanism, Role):
             )
         else:
             logger.debug("market %s - does not reopen", self.marketconfig.market_id)
+        self.whole_wait += time.time() - t
 
     def validate_registration(
         self, content: RegistrationMessage, meta: MetaDict
@@ -427,6 +431,7 @@ class MarketRole(MarketMechanism, Role):
         Raises:
             KeyError: If required keys are missing in `content` or `meta`.
         """
+        t = time.time()
         agent_addr = sender_addr(meta)
 
         incoming_market_id = content.get("market_id")
@@ -476,6 +481,7 @@ class MarketRole(MarketMechanism, Role):
             receiver_addr=agent_addr,
         )
         logger.debug("Sent registration reply to agent '%s': %s", agent_addr, msg)
+        self.whole_wait += time.time() - t
 
     def handle_orderbook(self, content: OrderBookMessage, meta: MetaDict):
         """
@@ -791,3 +797,6 @@ class MarketRole(MarketMechanism, Role):
                 content=message,
                 receiver_addr=db_addr,
             )
+
+    async def on_stop(self):
+        logging.error(f"total market duration was {self.whole_wait}")
