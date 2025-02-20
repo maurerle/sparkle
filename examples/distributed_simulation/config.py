@@ -36,7 +36,7 @@ market_operator_addr = addr(manager_protocol_addr, "market_operator")
 broker_addr = os.getenv("MQTT_BROKER", ("0.0.0.0", 1883, 600))
 
 start = datetime(2019, 1, 1)
-end = datetime(2019, 3, 1)
+end = datetime(2019, 1, 1) + timedelta(days=30)
 index = pd.date_range(
     start=start,
     end=end + timedelta(hours=24),
@@ -67,7 +67,7 @@ async def worker(
     world.setup(
         start=start,
         end=end,
-        save_frequency_hours=48,
+        save_frequency_hours=480,
         simulation_id=simulation_id,
         index=index,
         manager_address=manager_protocol_addr,

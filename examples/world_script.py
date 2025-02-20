@@ -15,9 +15,9 @@ from assume.common.market_objects import MarketConfig, MarketProduct
 log = logging.getLogger(__name__)
 
 
-def init(world, n=1):
+def init(world, n=1, months=1):
     start = datetime(2019, 1, 1)
-    end = datetime(2019, 3, 1)
+    end = datetime(2019, 1, 1) + timedelta(days=30 * months)
 
     index = FastIndex(start, end, freq="h")
     simulation_id = "world_script_simulation"
@@ -25,7 +25,7 @@ def init(world, n=1):
     world.setup(
         start=start,
         end=end,
-        save_frequency_hours=48,
+        save_frequency_hours=480,
         simulation_id=simulation_id,
     )
 
@@ -81,7 +81,36 @@ def init(world, n=1):
 
 
 if __name__ == "__main__":
-    db_uri = "postgresql://assume:assume@localhost:5432/assume"
-    world = World(database_uri=db_uri)
-    init(world)
-    world.run()
+    import time
+
+    [1, 2, 16, 64, 128, 256]  # 3 months
+    [
+        0.5300636291503906,
+        0.5216586589813232,
+        1.9283447265625,
+        6.500819683074951,
+        12.949028491973877,
+        26.302656888961792,
+        53.81222891807556,
+    ]
+
+    [1, 2, 16, 64, 128, 256]
+    [
+        0.9769134521484375,
+        0.4847285747528076,
+        3.1939425468444824,
+        13.009318590164185,
+        26.49550771713257,
+        55.729703187942505,
+    ]
+
+    durs = []
+    for i in [1]:
+        t = time.time()
+        db_uri = "postgresql://assume:assume@localhost:5432/assume"
+        world = World(database_uri=db_uri)
+        init(world, months=i)
+        world.run()
+        dur = time.time() - t
+        durs.append(dur)
+    print(durs)

@@ -10,7 +10,6 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-
 from queries import query_data
 
 plt.style.use("seaborn-v0_8")
@@ -23,7 +22,6 @@ def plot_all_plots(
     results,
     latex_table: bool = False,
 ):
-
     simulation = "world_mastr_nuts1_entsoe_random_2019"
     simulation = "world_mastr_nuts1_entsoe_random_2024"
     data = results[simulation]
@@ -35,6 +33,7 @@ def plot_all_plots(
     data_nuts3["assume_dispatch"]["natural gas"] = data_nuts3["assume_dispatch"]["gas"]
 
     base_path = Path("output", simulation)
+
     # set plot to true here to see plots inline
     def savefig(path: str, plot=False, *args, **kwargs):
         output_path = Path(base_path, f"{path}.svg")
@@ -46,26 +45,28 @@ def plot_all_plots(
             plt.show()
         plt.close()
 
-    
-    renewables = data["dispatch_entsoe"][["solar", "wind_onshore", "wind_onshore"]].sum(axis=1)
+    renewables = data["dispatch_entsoe"][["solar", "wind_onshore", "wind_onshore"]].sum(
+        axis=1
+    )
     total_generation = data["dispatch_entsoe"].sum(axis=1)
-    total_load = data["load_entsoe"]*1e3
+    total_load = data["load_entsoe"] * 1e3
 
-    renewables_assume = data["assume_dispatch"][["solar", "wind_onshore", "wind_onshore"]].sum(axis=1)
+    renewables_assume = data["assume_dispatch"][
+        ["solar", "wind_onshore", "wind_onshore"]
+    ].sum(axis=1)
     total_generation_assume = data["assume_dispatch"].sum(axis=1)
 
     total_generation_assume[3400:3800].plot()
-    
 
     plt.scatter(total_load, data["preis_entsoe"], s=2)
     plt.scatter(total_generation_assume, data["preis_assume"][:8665], s=2)
     plt.legend(["entsoe", "assume"])
 
-    renewables_factor = renewables/total_generation
+    renewables_factor = renewables / total_generation
     plt.scatter(renewables_factor, data["preis_entsoe"].clip(0), s=2)
-    
+
     # anteil erneuerbare korreliert mit einem Preis
-    
+
     plt.scatter(renewables, data["preis_entsoe"], s=2, label="entsoe")
     plt.scatter(renewables_assume, data["preis_assume"][:8665], s=2, label="simulation")
     # similar for other nuts
@@ -142,9 +143,15 @@ def plot_all_plots(
         plt.title(tech)
         plt.xlabel("hour")
         plt.ylabel("energy in GW")
-        plt.legend([f"ENTSO-E {tech}", f"simulation {tech} NUTS1", f"simulation {tech} NUTS2", f"simulation {tech} NUTS3"])
+        plt.legend(
+            [
+                f"ENTSO-E {tech}",
+                f"simulation {tech} NUTS1",
+                f"simulation {tech} NUTS2",
+                f"simulation {tech} NUTS3",
+            ]
+        )
         savefig(f"dispatch_duration_curve_{tech}")
-
 
     if False:
         data["assume_dispatch"]["wind_onshore"][100:400].plot()
@@ -169,10 +176,10 @@ def plot_all_plots(
     preis_entsoe = preis_entsoe.reindex(preis_assume.index, fill_value=0)
     corref_assume = np.corrcoef(preis_entsoe, preis_assume)[0, 1]
     corref_assume2 = np.corrcoef(preis_entsoe, preis_assume_nuts2)[0, 1]
-    #corref_assume3 = np.corrcoef(preis_entsoe, preis_assume_nuts3)[0, 1]
+    # corref_assume3 = np.corrcoef(preis_entsoe, preis_assume_nuts3)[0, 1]
     print(f"CORR COEFF Simulation {simulation}  {corref_assume:.4f}")
     print(f"CORR COEFF Simulation NUTS2 {simulation}  {corref_assume2:.4f}")
-    #print(f"CORR COEFF Simulation NUTS3 {simulation}  {corref_assume3:.4f}")
+    # print(f"CORR COEFF Simulation NUTS3 {simulation}  {corref_assume3:.4f}")
 
     max_entsoe = preis_entsoe.max()
     min_entsoe = preis_entsoe.min()
@@ -180,7 +187,7 @@ def plot_all_plots(
 
     plt.scatter(preis_entsoe, preis_assume, s=8, label="NUTS1")
     plt.scatter(preis_entsoe, preis_assume_nuts2, s=8, label="NUTS2")
-    #plt.scatter(preis_entsoe, preis_assume_nuts3, s=8, label="NUTS3")
+    # plt.scatter(preis_entsoe, preis_assume_nuts3, s=8, label="NUTS3")
     plt.plot([min_entsoe, max_entsoe], [min_entsoe, max_entsoe], "k--", linewidth=1)
     plt.xlabel("historic price of ENTSO-E [€/MWh]")
     plt.ylabel("simulation price at respective hour [€/MWh]")
@@ -249,8 +256,8 @@ def plot_all_plots(
         start = "2019-06-17"
         end = "2019-07-10"
 
-        #start = "2023-06-17"
-        #end = "2023-07-10"
+        # start = "2023-06-17"
+        # end = "2023-07-10"
 
         techs = ["nuclear", "hard coal", "lignite", "natural gas", "oil", "hydro"]
         for tech in techs:
@@ -299,6 +306,7 @@ def results_to_csv(results: dict[str, dict[str, pd.DataFrame]]):
                 return_value = val_value
             return_value.to_csv(val_path)
 
+
 def table_from_results(results: dict = None):
     simulations = [
         "world_mastr_nuts1_entsoe_random_2019",
@@ -334,6 +342,7 @@ def table_from_results(results: dict = None):
             results[simulation] = data
 
     base_path = Path("output", simulation)
+
     # set plot to true here to see plots inline
     def savefig(path: str, plot=False, *args, **kwargs):
         output_path = Path(base_path, f"{path}.svg")
@@ -345,7 +354,7 @@ def table_from_results(results: dict = None):
             plt.show()
         plt.close()
 
-    calculation  = []
+    calculation = []
     for simulation in simulations:
         year = simulation.replace("_flexable", "")[-4:]
 
@@ -356,7 +365,7 @@ def table_from_results(results: dict = None):
 
         preis_entsoe = data["preis_entsoe"][from_date:to_date]
         preis_assume = data["preis_assume"][from_date:to_date]
-        if len(preis_assume)<1:
+        if len(preis_assume) < 1:
             continue
 
         # Pearson correlation coefficient
@@ -380,30 +389,30 @@ def table_from_results(results: dict = None):
 
         print("RMSE Simulation", simulation, rmse_assume.mean())
         calculation.append(
-        {
-        "simulation": simulation,
-        "entsoe_mean": preis_entsoe.mean(),
-        "preis_mean": preis_assume.mean(), 
-        "preis_max": preis_assume.max(),
-        "preis_min": preis_assume.min(),
-        "corref": corref_assume, 
-        "mae": mae_assume.mean(),
-        "mae_entsoe": mae_entsoe.mean(),
-        "rmse": rmse_assume.mean(),
-        "year": year,
-        "nuts": simulation[12:17],
-        })
+            {
+                "simulation": simulation,
+                "entsoe_mean": preis_entsoe.mean(),
+                "preis_mean": preis_assume.mean(),
+                "preis_max": preis_assume.max(),
+                "preis_min": preis_assume.min(),
+                "corref": corref_assume,
+                "mae": mae_assume.mean(),
+                "mae_entsoe": mae_entsoe.mean(),
+                "rmse": rmse_assume.mean(),
+                "year": year,
+                "nuts": simulation[12:17],
+            }
+        )
 
     results_df = pd.DataFrame(calculation).set_index("simulation")
     results_df = results_df.sort_values("year")
-    (results_df["entsoe_mean"]-results_df["entsoe_mean"].mean()).abs()
+    (results_df["entsoe_mean"] - results_df["entsoe_mean"].mean()).abs()
     results_df["preis_mean"].mean()
 
-    results_df["mae"]/results_df["entsoe_mean"]
+    results_df["mae"] / results_df["entsoe_mean"]
 
-    plt.figure(figsize=(10,5))
+    plt.figure(figsize=(10, 5))
     for name, group in results_df.groupby("nuts"):
-        
         plt.plot(group["year"], group["corref"], label=name)
         plt.legend()
         plt.ylabel("correlation coefficient")
@@ -413,15 +422,15 @@ def table_from_results(results: dict = None):
     table_str = [r"~ & mean & MAE & RMSE & correlation \\ \hline"]
     for year, group in results_df.groupby("year"):
         e = group.iloc[0]
-        table_str.append(fr"Historical {year} & {e.entsoe_mean:.2f} & ~ & ~ & ~\\")
-        
-        
+        table_str.append(rf"Historical {year} & {e.entsoe_mean:.2f} & ~ & ~ & ~\\")
+
         for idx, entry in group.sort_values("nuts").iterrows():
-            
-            table_str.append(fr"{entry.year} {entry.nuts} & {entry.preis_mean:.2f} & {entry.mae:.2f} & {entry.rmse:.2f} & {entry.corref:.2f} \\")
+            table_str.append(
+                rf"{entry.year} {entry.nuts} & {entry.preis_mean:.2f} & {entry.mae:.2f} & {entry.rmse:.2f} & {entry.corref:.2f} \\"
+            )
         table_str.append(r"\hline")
-    #print("\n".join(table_str))
-    
+    # print("\n".join(table_str))
+
     table_new = (
         r"""
     \begin{table}[!ht]
@@ -431,8 +440,8 @@ def table_from_results(results: dict = None):
         \label{tab:quantitative results}
     \end{table}
         """  # noqa: UP031
-            % "\n".join(table_str)
-        )
+        % "\n".join(table_str)
+    )
     print(table_new)
     output_path = Path(base_path, "table.tex")
     with open(output_path, "w") as f:
@@ -459,7 +468,6 @@ if __name__ == "__main__":
     else:
         results = {}
 
-
     for simulation in simulations:
         year = simulation.replace("_flexable", "")[-4:]
 
@@ -483,4 +491,3 @@ if __name__ == "__main__":
         pickle.dump(results, f)
 
     results_to_csv(results)
-

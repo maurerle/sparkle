@@ -5,6 +5,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 """
+Study for the EEM2025 resolution paper, showing the impact of simulation for different NUTS areas throughout the years 2018-2024
 python examples/oeds-study/phd_cli.py 2019 random entsoe_demand nuts1
 python examples/oeds-study/phd_cli.py 2019 random entsoe_demand nuts1
 """
@@ -32,12 +33,22 @@ infra_uri = os.getenv(
 parser = argparse.ArgumentParser(description="OEDS-Study client")
 
 # Adding arguments
-parser.add_argument('year', type=int, help='Enter a year 2015-2024(integer).')
-parser.add_argument('nuts', type=str, help='NUTS area aggregation, one of nuts0, nuts1, nuts2 or nuts3')
-parser.add_argument('--random', action='store_true', default=False,
-                    help='Randomize prices of power plants slightly')
-parser.add_argument('--entsoe_demand', action='store_true', default=False,
-                    help='Use official German demand')
+parser.add_argument("year", type=int, help="Enter a year 2015-2024(integer).")
+parser.add_argument(
+    "nuts", type=str, help="NUTS area aggregation, one of nuts0, nuts1, nuts2 or nuts3"
+)
+parser.add_argument(
+    "--random",
+    action="store_true",
+    default=False,
+    help="Randomize prices of power plants slightly",
+)
+parser.add_argument(
+    "--entsoe_demand",
+    action="store_true",
+    default=False,
+    help="Use official German demand",
+)
 
 # Parse the arguments
 args = parser.parse_args()
