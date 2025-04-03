@@ -12,6 +12,7 @@ from operator import itemgetter
 from mango import Role, create_acl, sender_addr
 from mango.messages.message import Performatives
 
+from assume.common.forecasts import FutureForecaster
 from assume.common.market_objects import (
     ClearingMessage,
     DataRequestMessage,
@@ -139,6 +140,8 @@ class UnitsOperator(Role):
             unit (BaseUnit): The unit to be added.
         """
         self.units[unit.id] = unit
+        if isinstance(unit.forecaster, FutureForecaster):
+            unit.forecaster.set_clock(self.context.clock)
 
     def participate(self, market: MarketConfig) -> bool:
         """

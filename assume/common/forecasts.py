@@ -6,6 +6,7 @@ import logging
 
 import numpy as np
 import pandas as pd
+from mango.util.clock import Clock
 
 from assume.common.fast_pandas import FastIndex, FastSeries
 
@@ -836,3 +837,67 @@ class NaiveForecast(Forecaster):
             return self.data_dict[column]
         else:
             return FastSeries(value=0.0, index=self.index)
+
+
+class FutureForecaster(CsvForecaster):
+    """
+    This class represents a forecaster that generates forecasts using random noise, depending on the steps into the future. It inherits
+    from the `CsvForecaster` class and initializes with the provided index, power plants, and
+    standard deviation of the noise.
+
+    Attributes:
+        index (pandas.Series): The index of the forecasts.
+        powerplants_units (pandas.DataFrame): The power plants.
+        sigma (float): The standard deviation of the noise.
+
+    Args:
+        index (pandas.Series): The index of the forecasts.
+        powerplants_units (pandas.DataFrame): The power plants.
+        sigma (float): The standard deviation of the noise.
+
+    Example:
+        >>> forecaster = FutureForecaster(index=pd.Series([1, 2, 3]))
+        >>> forecaster.set_clock(clock)
+        >>> forecaster.set_forecast(pd.Series([22, 25, 17], name='temperature'), prefix='location_1_')
+        >>> print(forecaster['location_1_temperature'])
+
+    """
+
+    def __init__(
+        self,
+        index: pd.Series,
+        powerplants_units: pd.DataFrame,
+        demand_units: pd.DataFrame,
+        market_configs: dict = {},
+        sigma: float = 0.02,
+        *args,
+        **kwargs,
+    ):
+        super().__init__(
+            index, powerplants_units, demand_units, market_configs, *args, **kwargs
+        )
+
+        self.index = FastIndex(start=index[0], end=index[-1], freq=pd.infer_freq(index))
+        self.sigma = sigma
+
+    def set_clock(self, clock: Clock):
+        self.clock = clock
+
+    def __getitem__(self, column: str) -> FastSeries:
+
+        if column not in self.forecasts.columns:
+            return FastSeries(value=0.0, index=self.index)
+        
+        noise = np.random.normal(0, self.sigma, len(self.index))
+        # cumulate noise, so that events further away have a less good forecast
+        noise = noise.cumsum()
+        # TODO: we could reuse the noise created once here
+        idx = self.index._get_idx_from_date(self.clock.current_timestamp)
+        # now move the smallest noise to the current date
+        noise = np.roll(noise, idx)
+        # set historic noise to zero
+        noise[:idx] = 0
+        
+        forecast_data = self.forecasts[column].values * noise
+
+        return FastSeries(index=self.index, value=forecast_data)
