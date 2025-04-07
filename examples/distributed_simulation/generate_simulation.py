@@ -32,8 +32,8 @@ agents = [agent_name(i) for i in range(agent_count)]
 output.append("""
   assume_db:
     # smaller without postgis support:
-    # image: timescale/timescaledb:latest-pg16
-    image: timescale/timescaledb-ha:pg16-oss
+    # image: timescale/timescaledb:latest-pg17
+    image: timescale/timescaledb-ha:pg17-oss
     container_name: assume_db
     restart: always
     environment:
