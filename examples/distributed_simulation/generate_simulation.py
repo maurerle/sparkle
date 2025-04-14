@@ -120,13 +120,16 @@ output.append(f"""
 #    volumes:
 #      - ./examples/distributed_simulation:/src/examples/distributed_simulation
     entrypoint: python3 -m examples.distributed_simulation.world_manager {" ".join(agents)}
-    restart: on-failure
     deploy:
       mode: replicated
       replicas: 1
       placement:
         constraints: [node.role == manager]
-
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
 """)
 
 # Add Bidding Agents
@@ -141,7 +144,6 @@ for agent in range(agent_count):
 #    volumes:
 #      - ./examples/distributed_simulation:/src/examples/distributed_simulation
     entrypoint: python3 -m examples.distributed_simulation.world_agent {agent} {agent_count} {agent_name(agent)}
-    restart: on-failure
 """)
 
 with open("compose.yml", "w") as f:
