@@ -98,6 +98,12 @@ if MQTT:
       interval: 45s
       timeout: 5s
       retries: 5
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+
 """)
 # Add one management agent
 output.append(f"""
@@ -111,9 +117,15 @@ output.append(f"""
       MQTT_BROKER: "{MQTT}"
       TCP_HOST: "{TCP_HOST}"
       TCP_PORT: "{TCP_PORT}"
-    volumes:
-      - ./examples/distributed_simulation:/src/examples/distributed_simulation
+#    volumes:
+#      - ./examples/distributed_simulation:/src/examples/distributed_simulation
     entrypoint: python3 -m examples.distributed_simulation.world_manager {" ".join(agents)}
+    restart: on-failure
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
 
 """)
 
@@ -126,9 +138,10 @@ for agent in range(agent_count):
       MQTT_BROKER: "{MQTT}"
       TCP_HOST: "{TCP_HOST}"
       TCP_PORT: "{TCP_PORT}"
-    volumes:
-      - ./examples/distributed_simulation:/src/examples/distributed_simulation
+#    volumes:
+#      - ./examples/distributed_simulation:/src/examples/distributed_simulation
     entrypoint: python3 -m examples.distributed_simulation.world_agent {agent} {agent_count} {agent_name(agent)}
+    restart: on-failure
 """)
 
 with open("compose.yml", "w") as f:
