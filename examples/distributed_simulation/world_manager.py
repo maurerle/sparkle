@@ -72,5 +72,5 @@ if __name__ == "__main__":
         if world.distributed_role:
             world.addresses.extend(agent_addresses)
         world.loop.run_until_complete(worker(world, marketdesign, create_worker))
-    except Exception as e:
-        print(e)
+    except KeyboardInterrupt:
+        pass

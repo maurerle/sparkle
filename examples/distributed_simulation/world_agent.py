@@ -66,5 +66,5 @@ if __name__ == "__main__":
         import time
 
         time.sleep(6)
-    except Exception as e:
-        print(e)
+    except KeyboardInterrupt:
+        pass
