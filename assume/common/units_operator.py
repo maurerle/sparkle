@@ -372,8 +372,9 @@ class UnitsOperator(Role):
         for unit_id, unit in self.units.items():
             current_dispatch = unit.execute_current_dispatch(start, now)
             end = now
-            dispatch = {"power": current_dispatch}
-            unit.calculate_generation_cost(start, now, "energy")
+            metric_name = "power" if product_type == "energy" else product_type
+            dispatch = {metric_name: current_dispatch}
+            unit.calculate_generation_cost(start, now, product_type)
             valid_outputs = [
                 "soc",
                 "cashflow",
