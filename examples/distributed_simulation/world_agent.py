@@ -2,7 +2,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-from assume import MarketConfig, World
+from sparkle import MarketConfig, World
 from sparkle.common.forecasts import NaiveForecast
 
 from .config import (

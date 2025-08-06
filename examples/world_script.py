@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 
 from dateutil import rrule as rr
 
-from assume import World
+from sparkle import World
 from sparkle.common.fast_pandas import FastIndex
 from sparkle.common.forecasts import NaiveForecast
 from sparkle.common.market_objects import MarketConfig, MarketProduct

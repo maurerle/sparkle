@@ -9,7 +9,7 @@ import pandas as pd
 import pypsa
 from dateutil import rrule as rr
 
-from assume import World
+from sparkle import World
 from sparkle.common.forecasts import NaiveForecast
 from sparkle.common.market_objects import MarketConfig, MarketProduct
 

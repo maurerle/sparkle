@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 from dateutil import rrule as rr
 
-from assume import World
+from sparkle import World
 from sparkle.common.fast_pandas import FastSeries
 from sparkle.common.forecasts import NaiveForecast
 from sparkle.common.market_objects import MarketConfig, MarketProduct

@@ -286,9 +286,6 @@ class World:
             db_uri=self.db_uri,
             export_csv_path=self.export_csv_path,
             save_frequency_hours=save_frequency_hours,
-            evaluation_mode=self.evaluation_mode,
-            episode=episode,
-            eval_episode=eval_episode,
             additional_kpis=self.additional_kpis,
             outputs_buffer_size_mb=self.scenario_data["config"].get(
                 "outputs_buffer_size_mb", 300

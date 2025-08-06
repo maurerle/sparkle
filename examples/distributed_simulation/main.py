@@ -7,7 +7,7 @@ from multiprocessing import Process, set_start_method
 
 from mango import addr
 
-from assume import World
+from sparkle import World
 
 # import common simulation config from distributed_simulation/config.py
 from .config import (

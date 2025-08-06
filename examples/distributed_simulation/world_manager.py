@@ -6,7 +6,7 @@ import sys
 
 from mango import addr
 
-from assume import MarketConfig, World
+from sparkle import MarketConfig, World
 from sparkle.common.forecasts import NaiveForecast
 
 from .config import (

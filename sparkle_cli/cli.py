@@ -129,9 +129,9 @@ def cli(args=None):
 
     # import package after argcomplete.autocomplete
     # to improve autocompletion speed
-    from assume import World
+    from sparkle import World
     from sparkle.common.exceptions import AssumeException
-    from sparkle.scenario.loader_csv import load_scenario_folder, run_learning
+    from sparkle.scenario.loader_csv import load_scenario_folder
 
     try:
         os.makedirs("./examples/local_db", exist_ok=True)
@@ -158,9 +158,6 @@ def cli(args=None):
         )
 
         logging.info(f"loaded {args.scenario} - {args.case_study}")
-
-        if world.learning_config.get("learning_mode", False):
-            run_learning(world)
 
         world.run()
 

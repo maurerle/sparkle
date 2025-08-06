@@ -11,7 +11,7 @@ import pandas as pd
 from dateutil import rrule as rr
 from mango import activate, addr
 
-from assume import World
+from sparkle import World
 from sparkle.common.market_objects import MarketConfig, MarketProduct
 from sparkle.common.utils import datetime2timestamp
 

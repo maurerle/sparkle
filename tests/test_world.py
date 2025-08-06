@@ -4,7 +4,7 @@
 
 import asyncio
 
-from assume import World
+from sparkle import World
 from sparkle.scenario.loader_csv import load_scenario_folder
 
 
