@@ -8,12 +8,12 @@ import pandas as pd
 import pytest
 from dateutil import rrule as rr
 
-from assume.common.forecasts import NaiveForecast
-from assume.common.market_objects import MarketConfig, MarketProduct
-from assume.common.utils import get_available_products
-from assume.strategies.dmas_storage import DmasStorageStrategy
-from assume.strategies.naive_strategies import NaiveSingleBidStrategy
-from assume.units import Storage
+from sparkle.common.forecasts import NaiveForecast
+from sparkle.common.market_objects import MarketConfig, MarketProduct
+from sparkle.common.utils import get_available_products
+from sparkle.strategies.dmas_storage import DmasStorageStrategy
+from sparkle.strategies.naive_strategies import NaiveSingleBidStrategy
+from sparkle.units import Storage
 
 from .utils import get_test_prices
 

@@ -12,9 +12,9 @@ from mango import RoleAgent, activate, create_tcp_container, sender_addr
 from mango.util.clock import ExternalClock
 from mango.util.termination_detection import tasks_complete_or_sleeping
 
-from assume.common.market_objects import MarketConfig
-from assume.common.utils import datetime2timestamp
-from assume.markets.base_market import MarketProduct, MarketRole
+from sparkle.common.market_objects import MarketConfig
+from sparkle.common.utils import datetime2timestamp
+from sparkle.markets.base_market import MarketProduct, MarketRole
 
 start = datetime(2020, 1, 1)
 end = datetime(2020, 12, 2)

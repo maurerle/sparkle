@@ -7,9 +7,9 @@ from datetime import timedelta
 import pandas as pd
 import pytest
 
-from assume.common.base import BaseStrategy, BaseUnit
-from assume.common.forecasts import NaiveForecast
-from assume.common.market_objects import MarketConfig, Orderbook, Product
+from sparkle.common.base import BaseStrategy, BaseUnit
+from sparkle.common.forecasts import NaiveForecast
+from sparkle.common.market_objects import MarketConfig, Orderbook, Product
 
 
 class BasicStrategy(BaseStrategy):

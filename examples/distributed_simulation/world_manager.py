@@ -7,7 +7,7 @@ import sys
 from mango import addr
 
 from assume import MarketConfig, World
-from assume.common.forecasts import NaiveForecast
+from sparkle.common.forecasts import NaiveForecast
 
 from .config import (
     agent_addresses,

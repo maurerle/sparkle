@@ -8,10 +8,10 @@ import pandas as pd
 import pytest
 from dateutil import rrule as rr
 
-from assume.common.forecasts import NaiveForecast
-from assume.common.market_objects import MarketConfig, MarketProduct
-from assume.strategies import NaiveExchangeStrategy
-from assume.units.exchange import Exchange
+from sparkle.common.forecasts import NaiveForecast
+from sparkle.common.market_objects import MarketConfig, MarketProduct
+from sparkle.strategies import NaiveExchangeStrategy
+from sparkle.units.exchange import Exchange
 
 # === FIXTURES ===
 

@@ -9,13 +9,13 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from assume.common.forecasts import NaiveForecast
-from assume.strategies import (
+from sparkle.common.forecasts import NaiveForecast
+from sparkle.strategies import (
     flexableEOMStorage,
     flexableNegCRMStorage,
     flexablePosCRMStorage,
 )
-from assume.units import Storage
+from sparkle.units import Storage
 
 
 @pytest.fixture

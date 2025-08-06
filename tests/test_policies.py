@@ -18,13 +18,13 @@ from mango import (
 )
 from mango.util.clock import ExternalClock
 
-from assume.common.fast_pandas import FastIndex
-from assume.common.forecasts import NaiveForecast
-from assume.common.market_objects import MarketConfig, MarketProduct
-from assume.common.units_operator import UnitsOperator
-from assume.markets.base_market import MarketRole
-from assume.strategies.naive_strategies import NaiveSingleBidStrategy
-from assume.units.demand import Demand
+from sparkle.common.fast_pandas import FastIndex
+from sparkle.common.forecasts import NaiveForecast
+from sparkle.common.market_objects import MarketConfig, MarketProduct
+from sparkle.common.units_operator import UnitsOperator
+from sparkle.markets.base_market import MarketRole
+from sparkle.strategies.naive_strategies import NaiveSingleBidStrategy
+from sparkle.units.demand import Demand
 
 start = datetime(2020, 1, 1)
 end = datetime(2020, 12, 2)

@@ -7,9 +7,9 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "assume-framework"
-version = "0.5.4"
-description = "ASSUME - Agent-Based Electricity Markets Simulation Toolbox"
+name = "sparkle"
+version = "1.0.0"
+description = "Sparkle - Simulation Platform for Agent-based Research on energy marKet dynamics for Lower Emissions"
 authors = [{ name = "ASSUME Developers", email = "contact@assume-project.de"}]
 license = {text = "AGPL-3.0-or-later"}
 readme = "README.md"
@@ -47,10 +47,6 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-learning = [
-    "torch >=2.0.1",
-    "tensorboard >=2.7.0",
-]
 network = [
     "pypsa <0.33",
 ]
@@ -70,15 +66,11 @@ test = [
     "pytest-asyncio >=0.21.1",
 ]
 all = [
-    "assume-framework[oeds, network, learning]",
+    "assume-framework[oeds, network]",
 ]
 
 [project.urls]
-Homepage = "https://assume-project.de/"
-Repository = "https://github.com/assume-framework/assume"
-Documentation = "https://assume.readthedocs.io"
-Issues = "https://github.com/assume-framework/assume/issues"
-Changelog = "https://assume.readthedocs.io/en/latest/release_notes.html"
+Repository = "https://github.com/maurerle/sparkle"
 
 [project.scripts]
 assume = "assume_cli.cli:cli"
@@ -130,7 +122,7 @@ addopts = "--ignore=assume-db"
 
 [tool.coverage.run]
 omit = ["tests/*"]
-source = ["assume"]
+source = ["sparkle"]
 
 [tool.coverage.report]
 # https://stackoverflow.com/a/5850364

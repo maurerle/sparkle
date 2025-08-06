@@ -8,10 +8,10 @@ from datetime import datetime, timedelta
 import pandas as pd
 import pytest
 
-from assume.common.forecasts import NaiveForecast
-from assume.strategies.flexable_storage import flexableEOMStorage
-from assume.strategies.naive_strategies import NaiveSingleBidStrategy
-from assume.units import Storage
+from sparkle.common.forecasts import NaiveForecast
+from sparkle.strategies.flexable_storage import flexableEOMStorage
+from sparkle.strategies.naive_strategies import NaiveSingleBidStrategy
+from sparkle.units import Storage
 
 
 @pytest.fixture

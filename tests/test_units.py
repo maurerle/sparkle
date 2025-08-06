@@ -6,8 +6,8 @@ from datetime import datetime
 
 import pandas as pd
 
-from assume.common.base import SupportsMinMax, SupportsMinMaxCharge
-from assume.common.forecasts import NaiveForecast
+from sparkle.common.base import SupportsMinMax, SupportsMinMaxCharge
+from sparkle.common.forecasts import NaiveForecast
 
 
 def test_minmax():

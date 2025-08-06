@@ -8,9 +8,9 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from assume.common.base import SupportsMinMax
-from assume.common.fast_pandas import FastSeries
-from assume.common.forecasts import NaiveForecast
+from sparkle.common.base import SupportsMinMax
+from sparkle.common.fast_pandas import FastSeries
+from sparkle.common.forecasts import NaiveForecast
 
 
 class MockMarketConfig:

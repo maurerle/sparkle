@@ -8,10 +8,10 @@ import pandas as pd
 import pytest
 from dateutil import rrule as rr
 
-from assume.common.forecasts import NaiveForecast
-from assume.common.market_objects import MarketConfig, MarketProduct
-from assume.strategies import ElasticDemandStrategy, NaiveSingleBidStrategy
-from assume.units.demand import Demand
+from sparkle.common.forecasts import NaiveForecast
+from sparkle.common.market_objects import MarketConfig, MarketProduct
+from sparkle.strategies import ElasticDemandStrategy, NaiveSingleBidStrategy
+from sparkle.units.demand import Demand
 
 
 def test_demand():

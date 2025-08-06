@@ -7,7 +7,7 @@ from itertools import product
 
 import numpy as np
 
-from assume.common.market_objects import Order
+from sparkle.common.market_objects import Order
 
 
 def create_orderbook(order: Order = None, node_ids=[0], count=100, seed=30):

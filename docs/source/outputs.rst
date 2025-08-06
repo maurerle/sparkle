@@ -127,7 +127,7 @@ Example usage of the ``DatabaseMaintenance`` class:
 
 .. code-block:: python
 
-  from assume.common import DatabaseMaintenance
+  from sparkle.common import DatabaseMaintenance
 
   # Select to store the simulation results in a local database or in TimescaleDB.
   # When using TimescaleDB, ensure Docker is installed and the Grafana dashboard is accessible.

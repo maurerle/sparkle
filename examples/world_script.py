@@ -8,9 +8,9 @@ from datetime import datetime, timedelta
 from dateutil import rrule as rr
 
 from assume import World
-from assume.common.fast_pandas import FastIndex
-from assume.common.forecasts import NaiveForecast
-from assume.common.market_objects import MarketConfig, MarketProduct
+from sparkle.common.fast_pandas import FastIndex
+from sparkle.common.forecasts import NaiveForecast
+from sparkle.common.market_objects import MarketConfig, MarketProduct
 
 log = logging.getLogger(__name__)
 

@@ -8,11 +8,11 @@ import pandas as pd
 from dateutil import rrule as rr
 from mango import addr
 
-from assume.markets.clearing_algorithms.contracts import (
+from sparkle.markets.clearing_algorithms.contracts import (
     available_contracts,
     market_premium,
 )
-from assume.strategies.extended import is_co2emissionless
+from sparkle.strategies.extended import is_co2emissionless
 
 
 def test_contract_functions():

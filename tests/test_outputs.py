@@ -8,7 +8,7 @@ from datetime import datetime
 import numpy as np
 from sqlalchemy import create_engine
 
-from assume.common.outputs import WriteOutput
+from sparkle.common.outputs import WriteOutput
 
 os.makedirs("./examples/local_db", exist_ok=True)
 DB_URI = "sqlite:///./examples/local_db/test_outputs.db"

@@ -13,9 +13,9 @@ import pytest
 from dateutil import rrule as rr
 from dateutil.tz import tzlocal
 
-from assume.common.fast_pandas import FastIndex, FastSeries
-from assume.common.market_objects import MarketConfig, MarketProduct
-from assume.common.utils import (
+from sparkle.common.fast_pandas import FastIndex, FastSeries
+from sparkle.common.market_objects import MarketConfig, MarketProduct
+from sparkle.common.utils import (
     aggregate_step_amount,
     convert_to_rrule_freq,
     datetime2timestamp,
@@ -29,7 +29,7 @@ from assume.common.utils import (
     timestamp2datetime,
     visualize_orderbook,
 )
-from assume.scenario.loader_csv import make_market_config
+from sparkle.scenario.loader_csv import make_market_config
 
 from .utils import create_orderbook
 
@@ -796,7 +796,7 @@ def test_solver_available():
 
 
 def test_solver_unavailable(monkeypatch):
-    monkeypatch.setattr("assume.common.utils.check_available_solvers", lambda *args: [])
+    monkeypatch.setattr("sparkle.common.utils.check_available_solvers", lambda *args: [])
     with pytest.raises(RuntimeError):
         get_supported_solver()
 

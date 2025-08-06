@@ -8,9 +8,9 @@ from datetime import datetime, timedelta
 
 from dateutil import rrule as rr
 
-from assume.common.market_objects import MarketConfig, MarketProduct, Order
-from assume.common.utils import get_available_products
-from assume.markets.clearing_algorithms import ComplexClearingRole
+from sparkle.common.market_objects import MarketConfig, MarketProduct, Order
+from sparkle.common.utils import get_available_products
+from sparkle.markets.clearing_algorithms import ComplexClearingRole
 
 from .utils import extend_orderbook
 
@@ -546,7 +546,7 @@ def test_clearing_non_convex_3():
 
 if __name__ == "__main__":
     pass
-    # from assume.common.utils import plot_orderbook
+    # from sparkle.common.utils import plot_orderbook
     # clearing_result, meta, flows = test_market_mechanism()
     # only works with per node clearing
     # fig, ax = plot_orderbook(clearing_result, meta)

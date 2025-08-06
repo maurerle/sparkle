@@ -7,9 +7,9 @@ from datetime import datetime
 import pytest
 from dateutil.relativedelta import relativedelta as rd
 
-from assume.common.market_objects import MarketProduct
-from assume.common.utils import get_available_products
-from assume.strategies import (
+from sparkle.common.market_objects import MarketProduct
+from sparkle.common.utils import get_available_products
+from sparkle.strategies import (
     ElasticDemandStrategy,
     NaiveProfileStrategy,
     NaiveSingleBidStrategy,

@@ -7,8 +7,8 @@ from datetime import datetime, timedelta
 import pytest
 from dateutil import rrule as rr
 
-from assume.common.market_objects import MarketConfig, MarketProduct
-from assume.strategies import OTCStrategy
+from sparkle.common.market_objects import MarketConfig, MarketProduct
+from sparkle.strategies import OTCStrategy
 
 start = datetime(2023, 7, 1)
 end = datetime(2023, 7, 2)

@@ -12,8 +12,8 @@ from dateutil import rrule as rr
 from mango import activate, addr
 
 from assume import World
-from assume.common.market_objects import MarketConfig, MarketProduct
-from assume.common.utils import datetime2timestamp
+from sparkle.common.market_objects import MarketConfig, MarketProduct
+from sparkle.common.utils import datetime2timestamp
 
 log = logging.getLogger(__name__)
 

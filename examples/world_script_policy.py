@@ -10,9 +10,9 @@ from dateutil import rrule as rr
 from dateutil.relativedelta import relativedelta as rd
 
 from assume import World
-from assume.common.forecasts import NaiveForecast
-from assume.common.market_objects import MarketConfig, MarketProduct
-from assume.markets.clearing_algorithms.contracts import PayAsBidContractRole
+from sparkle.common.forecasts import NaiveForecast
+from sparkle.common.market_objects import MarketConfig, MarketProduct
+from sparkle.markets.clearing_algorithms.contracts import PayAsBidContractRole
 
 log = logging.getLogger(__name__)
 
@@ -31,7 +31,7 @@ def init(world: World):
     simulation_id = "world_script_policy"
 
     world.clearing_mechanisms["pay_as_bid_contract"] = PayAsBidContractRole
-    from assume.strategies.extended import SupportStrategy
+    from sparkle.strategies.extended import SupportStrategy
 
     world.bidding_strategies["support"] = SupportStrategy
 

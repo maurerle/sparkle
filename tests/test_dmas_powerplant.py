@@ -8,11 +8,11 @@ import pandas as pd
 import pytest
 from dateutil import rrule as rr
 
-from assume.common.forecasts import NaiveForecast
-from assume.common.market_objects import MarketConfig, MarketProduct
-from assume.common.utils import get_available_products
-from assume.strategies.dmas_powerplant import DmasPowerplantStrategy
-from assume.units import PowerPlant
+from sparkle.common.forecasts import NaiveForecast
+from sparkle.common.market_objects import MarketConfig, MarketProduct
+from sparkle.common.utils import get_available_products
+from sparkle.strategies.dmas_powerplant import DmasPowerplantStrategy
+from sparkle.units import PowerPlant
 
 from .utils import get_test_prices
 

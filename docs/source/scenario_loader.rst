@@ -39,7 +39,7 @@ The AMIRIS loader can be used to run examples configured for usage with the ener
 .. code-block:: python
 
     from assume import World
-    from assume.scenario import load_amiris
+    from sparkle.scenario import load_amiris
 
     # To download some amiris examples run:
     # git clone https://gitlab.com/dlr-ve/esy/amiris/examples.git amiris-examples
@@ -165,7 +165,7 @@ An example can be seen from the pypsa scigrid case:
 
 .. code-block:: python
 
-    from assume.scenario.loader_pypsa import load_pypsa
+    from sparkle.scenario.loader_pypsa import load_pypsa
     from assume import World
     import pypsa
 

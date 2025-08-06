@@ -8,13 +8,13 @@ from datetime import datetime
 import pandas as pd
 import pytest
 
-from assume.common.forecasts import NaiveForecast
-from assume.strategies import (
+from sparkle.common.forecasts import NaiveForecast
+from sparkle.strategies import (
     flexableEOM,
     flexableNegCRM,
     flexablePosCRM,
 )
-from assume.units import PowerPlant
+from sparkle.units import PowerPlant
 
 start = datetime(2023, 7, 1)
 end = datetime(2023, 7, 2)

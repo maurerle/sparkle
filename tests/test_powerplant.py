@@ -7,9 +7,9 @@ from datetime import datetime, timedelta
 import pandas as pd
 import pytest
 
-from assume.common.forecasts import NaiveForecast
-from assume.strategies.naive_strategies import NaiveSingleBidStrategy
-from assume.units import PowerPlant
+from sparkle.common.forecasts import NaiveForecast
+from sparkle.strategies.naive_strategies import NaiveSingleBidStrategy
+from sparkle.units import PowerPlant
 
 
 @pytest.fixture

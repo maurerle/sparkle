@@ -7,9 +7,9 @@ from datetime import datetime, timedelta
 
 from dateutil import rrule as rr
 
-from assume.common.market_objects import MarketConfig, MarketProduct
-from assume.common.utils import get_available_products
-from assume.markets.clearing_algorithms import PayAsClearRole, clearing_mechanisms
+from sparkle.common.market_objects import MarketConfig, MarketProduct
+from sparkle.common.utils import get_available_products
+from sparkle.markets.clearing_algorithms import PayAsClearRole, clearing_mechanisms
 
 from .utils import create_orderbook, extend_orderbook
 
