@@ -9,7 +9,7 @@ from multiprocessing import Process, set_start_method
 from distributed_simulation.main import agent, agent_addresses, manager, tcp_host
 from world_script import init
 
-from assume import World
+from sparkle import World
 
 set_start_method("spawn", force=True)
 

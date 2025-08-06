@@ -1,5 +1,5 @@
 <!--
-SPDX-FileCopyrightText: ASSUME Developers
+SPDX-FileCopyrightText: Florian Maurer
 
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
@@ -14,12 +14,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 This is a fork of ASSUME, created to focus on the results of my PhD thesis. It is published under a different name, so that my thesis is not too tightly coupled to the ASSUME research project, as I do not receive funding from it.
 
 I plan to add all features to the upstream assume project, where I am also one of the core maintainers and developers.
-After finishing my PhD, SPARKLE will not be maintained any longer, so you should surely just use the ASSUME Framework in the first place.
-
-For convenience reasons, the package name and cli name stays `assume` to reduce the unneeded changes towards the maintained version.
-
+After finishing my PhD, SPARKLE will not be maintained any longer, so you should surely just use ASSUME Framework for own simulations, while investigating my developments in this repository.
 
 ## Documentation
+
+See upstream deployed documentation for most features
 
 - [User Documentation](https://assume.readthedocs.io/en/latest/)
 - [Installation Guide](https://assume.readthedocs.io/en/latest/installation.html)
@@ -34,12 +33,6 @@ To install the core package:
 
 ```bash
 pip install -e .
-```
-
-**To install with reinforcement learning capabilities:**
-
-```bash
-pip install -e .[full]
 ```
 
 ### Timescale Database and Grafana Dashboards
@@ -62,20 +55,10 @@ docker-compose up -d
 ```
 
 This will launch a container for TimescaleDB and Grafana with preconfigured dashboards for analysis. You can access the Grafana dashboards at `http://localhost:3000`.
-### Using TensorBoard to display Learning Metrics
 
-When running an example with learning capabilities, you can start TensorBoard to observe the learning process. Use the following shell command to start TensorBoard:
-```shell
-tensorboard --logdir tensorboard
-```
+## Trying out SPARKLE and the provided Examples
 
-You can then head to `http://localhost:6006/` to view and evaluate the training progress.
-
-Please note that TensorBoard should ideally be shut down via `Ctrl + C` every time you want to start a new simulation run in the same folder structure and want to overwrite existing results, as failing to do so may lead to conflicts deleting old logs.
-
-## Trying out ASSUME and the provided Examples
-
-To ease your way into ASSUME we provided some examples and tutorials. The former are helpful if you would like to get an impression of how ASSUME works and the latter introduce you into the development of ASSUME.
+To ease your way into SPARKLE we provided some examples and tutorials. The former are helpful if you would like to get an impression of how SPARKLE works and the latter introduce you into the development of SPARKLE.
 
 ### Usage
 
@@ -88,13 +71,12 @@ If you have installed Docker and set up the Docker Compose file previously, you 
 - Using the CLI to run simulations:
 
 ```bash
-assume -s example_01b -db "postgresql://assume:assume@localhost:5432/assume"
+sparkle -s example_01b -db "postgresql://assume:assume@localhost:5432/assume"
 ```
 
-For additional CLI options, run `assume -h`.
+For additional CLI options, run `sparkle -h`.
 
 ## License
 
-Copyright 2022-2025 [ASSUME developers](https://assume.readthedocs.io/en/latest/developers.html).
 
-ASSUME is licensed under the [GNU Affero General Public License v3.0](./LICENSES/AGPL-3.0-or-later.txt). This license is a strong copyleft license that requires that any derivative work be licensed under the same terms as the original work. It is approved by the [Open Source Initiative](https://opensource.org/licenses/AGPL-3.0).
+SPARKLE is licensed under the [GNU Affero General Public License v3.0](./LICENSES/AGPL-3.0-or-later.txt). This license is a strong copyleft license that requires that any derivative work be licensed under the same terms as the original work. It is approved by the [Open Source Initiative](https://opensource.org/licenses/AGPL-3.0).

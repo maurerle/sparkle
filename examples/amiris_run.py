@@ -63,8 +63,8 @@ if run_amiris:
 
 # now start the fresh assume run
 if run_assume:
-    from assume import World
-    from assume.scenario.loader_amiris import load_amiris_async
+    from sparkle import World
+    from sparkle.scenario.loader_amiris import load_amiris_async
 
     forecast_file = Path("scenario", scenario, "MeritOrderForecaster.csv")
     with open(forecast_file) as f:
